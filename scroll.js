@@ -7,7 +7,7 @@ function scrollTo(scrollTo, speed) {
       if (window.matchMedia("(max-width: 599px)").matches) {
         speed = 25;
       } else {
-        /* the viewport is less than 400 pixels wide */
+        // the viewport is less than 599 pixels wide
         speed = 50;
       }
     }
@@ -39,6 +39,7 @@ function scrollTo(scrollTo, speed) {
           }
         }
         if (document.body.scrollTop === scrollTo) {
+          // done
           isPageScrolling = false;
           return;
         }
