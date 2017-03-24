@@ -13,10 +13,8 @@ function scrollTo(scrollTo, speed) {
     }
     if (typeof(scrollTo) != "number") {
       scrollTo = scrollTo.offsetTop;
-      console.log(scrollTo);
     }
     var start = getScrollElement();
-    console.log(start);
     if (start == scrollTo) {
       return;
     } else {
@@ -42,7 +40,6 @@ function scrollTo(scrollTo, speed) {
         }
         if (getScrollElement() === scrollTo) {
           // done
-          console.log("done");
           isPageScrolling = false;
           return;
         }
@@ -66,10 +63,8 @@ function scrollToLR(scrollTo, speed) {
     }
     if (typeof(scrollTo) != "number") {
       scrollTo = scrollTo.offsetLeft;
-      console.log(scrollTo);
     }
     var start = getScrollElement(true);
-    console.log(start);
     if (start == scrollTo) {
       return;
     } else {
@@ -95,7 +90,6 @@ function scrollToLR(scrollTo, speed) {
         }
         if (getScrollElement(true) === scrollTo) {
           // done
-          console.log("done");
           isPageScrolling = false;
           return;
         }
