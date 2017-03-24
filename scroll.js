@@ -12,33 +12,33 @@ function scrollTo(scrollTo, speed) {
       }
     }
     if (typeof(scrollTo) != "number") {
-      scrollTo = scrollTo.offsetTop;
+      scrollTo = getScrollElement();
     }
-    var start = document.body.scrollTop;
+    var start = getScrollElement();
     if (start == scrollTo) {
       return;
     } else {
       var diff;
       var close = false;
       function scroll() {
-        diff = document.body.scrollTop - scrollTo;
+        diff = getScrollElement() - scrollTo;
         if (diff < speed && diff > -speed) {
           close = true;
         }
         if (diff < 0) {
           if (close) {
-            document.body.scrollTop++;
+            setScrollElement(getScrollElement()+1);
           } else {
-            document.body.scrollTop += speed;
+            setScrollElement(getScrollElement()+speed);
           }
         } else {
           if (close) {
-            document.body.scrollTop--;
+            setScrollElement(getScrollElement()-1);
           } else {
-            document.body.scrollTop -= speed;
+            setScrollElement(getScrollElement()-speed);
           }
         }
-        if (document.body.scrollTop === scrollTo) {
+        if (getScrollElement() === scrollTo) {
           // done
           isPageScrolling = false;
           return;
@@ -50,52 +50,23 @@ function scrollTo(scrollTo, speed) {
   }
 }
 
-function scrollToLR(scrollTo, speed) {
-  if (!isPageScrolling) {
-    isPageScrolling = true;
-    if (!speed) {
-      if (window.matchMedia("(max-width: 599px)").matches) {
-        speed = 25;
-      } else {
-        // the viewport is less than 599 pixels wide
-        speed = 50;
-      }
-    }
-    if (typeof(scrollTo) != "number") {
-      scrollTo = scrollTo.offsetLeft;
-    }
-    var start = document.body.scrollLeft;
-    if (start == scrollTo) {
-      return;
-    } else {
-      var diff;
-      var close = false;
-      function scroll() {
-        diff = document.body.scrollLeft - scrollTo;
-        if (diff < speed && diff > -speed) {
-          close = true;
-        }
-        if (diff < 0) {
-          if (close) {
-            document.body.scrollLeft++;
-          } else {
-            document.body.scrollLeft += speed;
-          }
-        } else {
-          if (close) {
-            document.body.scrollLeft--;
-          } else {
-            document.body.scrollLeft -= speed;
-          }
-        }
-        if (document.body.scrollLeft === scrollTo) {
-          // done
-          isPageScrolling = false;
-          return;
-        }
-        requestAnimationFrame(scroll);
-      }
-      scroll();
-    }
+
+function getScrollElement(left) {
+  if (left) {
+    return window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
+  } else {
+    return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  }
+}
+
+function setScrollElement(x, left) {
+  if (left) {
+    window.pageXOffset = x;
+    document.documentElement.scrollLeft = x;
+    document.body.scrollLeft = x;
+  } else {
+    window.pageYOffset = x;
+    document.documentElement.scrollTop = x;
+    document.body.scrollTop = x;
   }
 }
