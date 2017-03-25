@@ -1,6 +1,6 @@
 // my own smoothScrolling function
 var isPageScrolling = false;
-function scrollTo(scrollTo, speed) {
+function smoothScrollTo(scrollTo, speed) {
   if (!isPageScrolling) {
     isPageScrolling = true;
     if (!speed) {
@@ -52,7 +52,7 @@ function scrollTo(scrollTo, speed) {
   }
 }
 
-function scrollToLR(scrollTo, speed) {
+function smoothScrollToLR(scrollTo, speed) {
   if (!isPageScrolling) {
     isPageScrolling = true;
     if (!speed) {

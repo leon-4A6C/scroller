@@ -24,11 +24,10 @@
   <body>
     <div class="fullscreen" id="first">
       speed is optional
-      <button id="firstButton" type="button" name="button">go to the second</button>
+      <button id="firstButton" type="button" name="button" onclick="smoothScrollTo(document.getElementById('second'))">go to the second</button>
     </div>
     <div class="fullscreen" id="second">
-      <button id="secondButton" type="button" name="button">go to the first</button>
+      <button id="secondButton" type="button" name="button" onclick="smoothScrollTo(document.getElementById('first'))">go to the first</button>
     </div>
-    <script src="main.js" charset="utf-8"></script>
   </body>
 </html>
