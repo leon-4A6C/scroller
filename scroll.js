@@ -16,6 +16,8 @@ function scrollTo(scrollTo, speed) {
     }
     var start = getScrollElement();
     if (start == scrollTo) {
+      //done
+      isPageScrolling = false;
       return;
     } else {
       var diff;
@@ -66,6 +68,8 @@ function scrollToLR(scrollTo, speed) {
     }
     var start = getScrollElement(true);
     if (start == scrollTo) {
+      //done
+      isPageScrolling = false;
       return;
     } else {
       var diff;
