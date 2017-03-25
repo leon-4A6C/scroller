@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>test page</title>
+    <style media="screen">
+      * {
+        margin: 0;
+      }
+      #first {
+        background: pink;
+      }
+      #second{
+        background: blue;
+      }
+      .fullscreen {
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+      }
+    </style>
+    <script src="../scroll.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="fullscreen" id="first">
+      speed is optional
+      <button id="firstButton" type="button" name="button">go to the second</button>
+    </div>
+    <div class="fullscreen" id="second">
+      <button id="secondButton" type="button" name="button">go to the first</button>
+    </div>
+    <script src="main.js" charset="utf-8"></script>
+  </body>
+</html>
