@@ -168,6 +168,7 @@ function setScrollElement(x, left) {
         window.pageXOffset = x;
         break;
       default:
+        document.body.scrollLeft = x;
         return 0
     }
   } else {
@@ -182,6 +183,7 @@ function setScrollElement(x, left) {
         window.pageYOffset = x;
         break;
       default:
+        document.body.scrollTop = x;
         return 0
     }
   }
