@@ -1,7 +1,7 @@
 # scroller
 scrolls to an element on a page somewhat **smoothly**.
 
-### give it an element or a number
+### usage
 ```javascript
 // element
 scrollTo(document.getElementById('second'));
