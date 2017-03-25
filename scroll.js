@@ -125,7 +125,7 @@ function getScrollElement(left) {
         return window.pageXOffset;
         break;
       default:
-        return 0
+        return document.body.scrollLeft;
     }
   } else {
     if (!bestScrollElement) {
@@ -150,7 +150,7 @@ function getScrollElement(left) {
         return window.pageYOffset;
         break;
       default:
-        return 0
+        return document.body.scrollTop;
     }
   }
 }
