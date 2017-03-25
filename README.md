@@ -4,14 +4,14 @@ scrolls to an element on a page somewhat **smoothly**.
 ### usage
 ```javascript
 // element
-scrollTo(document.getElementById('second'));
+smoothScrollTo(document.getElementById('second'));
 
 //number
-scrollTo(124);
+smoothScrollTo(124);
 
 //speed
-scrollTo(document.getElementById('second'), 50);
+smoothScrollTo(document.getElementById('second'), 50);
 
 //left right scrolling
-scrollToLR(document.getElementById('second'));
+smoothScrollToLR(document.getElementById('second'));
 ```
