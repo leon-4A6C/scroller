@@ -1,58 +1,11 @@
 // my own smoothScrolling function
 var isPageScrolling = false;
-function smoothScrollTo(scrollTo, speed) {
-  if (!isPageScrolling) {
-    isPageScrolling = true;
-    if (!speed) {
-      if (window.matchMedia("(max-width: 599px)").matches) {
-        speed = 25;
-      } else {
-        // the viewport is less than 599 pixels wide
-        speed = 50;
-      }
-    }
-    if (typeof(scrollTo) != "number") {
-      scrollTo = scrollTo.offsetTop;
-    }
-    var start = getScrollElement();
-    if (start == scrollTo) {
-      //done
-      isPageScrolling = false;
-      return;
-    } else {
-      var diff;
-      var close = false;
-      function scroll() {
-        diff = getScrollElement() - scrollTo;
-        if (diff < speed && diff > -speed) {
-          close = true;
-        }
-        if (diff < 0) {
-          if (close) {
-            setScrollElement(getScrollElement()+1);
-          } else {
-            setScrollElement(getScrollElement()+speed);
-          }
-        } else {
-          if (close) {
-            setScrollElement(getScrollElement()-1);
-          } else {
-            setScrollElement(getScrollElement()-speed);
-          }
-        }
-        if (getScrollElement() === scrollTo) {
-          // done
-          isPageScrolling = false;
-          return;
-        }
-        requestAnimationFrame(scroll);
-      }
-      scroll();
-    }
+function smoothScrollTo(scrollToObject, direction, speed) {
+  var directionChange = false;
+  if (direction === "BOTH") {
+    directionChange = true;
+    direction = "TB";
   }
-}
-
-function smoothScrollToLR(scrollTo, speed) {
   if (!isPageScrolling) {
     isPageScrolling = true;
     if (!speed) {
@@ -64,37 +17,50 @@ function smoothScrollToLR(scrollTo, speed) {
       }
     }
     if (typeof(scrollTo) != "number") {
-      scrollTo = scrollTo.offsetLeft;
+      if (direction === "TB") {
+        var scrollTo = scrollToObject.offsetTop;
+      } else {
+        var scrollTo = scrollToObject.offsetLeft;
+      }
     }
-    var start = getScrollElement(true);
+    console.log(scrollToObject, direction, scrollTo, speed);
+    var start = getScrollElement(direction);
     if (start == scrollTo) {
       //done
       isPageScrolling = false;
+      if (directionChange === true) {
+        direction = "LR";
+        smoothScrollTo(scrollToObject, direction);
+      }
       return;
     } else {
       var diff;
       var close = false;
       function scroll() {
-        diff = getScrollElement(true) - scrollTo;
+        diff = getScrollElement(direction) - scrollTo;
         if (diff < speed && diff > -speed) {
           close = true;
         }
         if (diff < 0) {
           if (close) {
-            setScrollElement(getScrollElement(true)+1, true);
+            setScrollElement(getScrollElement(direction)+1, direction);
           } else {
-            setScrollElement(getScrollElement(true)+speed, true);
+            setScrollElement(getScrollElement(direction)+speed, direction);
           }
         } else {
           if (close) {
-            setScrollElement(getScrollElement(true)-1, true);
+            setScrollElement(getScrollElement(direction)-1, direction);
           } else {
-            setScrollElement(getScrollElement(true)-speed, true);
+            setScrollElement(getScrollElement(direction)-speed, direction);
           }
         }
-        if (getScrollElement(true) === scrollTo) {
+        if (getScrollElement(direction) === scrollTo) {
           // done
           isPageScrolling = false;
+          if (directionChange === true) {
+            direction = "LR";
+            smoothScrollTo(scrollToObject, direction);
+          }
           return;
         }
         requestAnimationFrame(scroll);
@@ -105,7 +71,7 @@ function smoothScrollToLR(scrollTo, speed) {
 }
 
 var bestScrollElement;
-function getScrollElement(left) {
+function getScrollElement(direction) {
   if (!bestScrollElement) {
     if (document.documentElement.scrollLeft || document.documentElement.scrollTop) {
       bestScrollElement = 0;
@@ -117,7 +83,7 @@ function getScrollElement(left) {
       return 0
     }
   }
-  if (left) {
+  if (direction === "LR") {
     switch (bestScrollElement) {
       case 0:
         return document.documentElement.scrollLeft;
@@ -131,7 +97,7 @@ function getScrollElement(left) {
       default:
         return document.body.scrollLeft;
     }
-  } else {
+  } else if(direction === "TB" || !direction){
     switch (bestScrollElement) {
       case 0:
         return document.documentElement.scrollTop;
@@ -148,8 +114,8 @@ function getScrollElement(left) {
   }
 }
 
-function setScrollElement(x, left) {
-  if (left) {
+function setScrollElement(x, direction) {
+  if (direction === "LR") {
     switch (bestScrollElement) {
       case 0:
         document.documentElement.scrollLeft = x;
@@ -164,7 +130,7 @@ function setScrollElement(x, left) {
         document.body.scrollLeft = x;
         return 0
     }
-  } else {
+  } else if(direction === "TB"  || !direction){
     switch (bestScrollElement) {
       case 0:
         document.documentElement.scrollTop = x;
