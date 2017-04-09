@@ -106,18 +106,18 @@ function smoothScrollToLR(scrollTo, speed) {
 
 var bestScrollElement;
 function getScrollElement(left) {
-  if (left) {
-    if (!bestScrollElement) {
-      if (document.documentElement.scrollLeft) {
-        bestScrollElement = 0;
-      } else if (document.body.scrollLeft) {
-        bestScrollElement = 1;
-      } else if (window.pageXOffset) {
-        bestScrollElement = 2;
-      } else {
-        return 0
-      }
+  if (!bestScrollElement) {
+    if (document.documentElement.scrollLeft || document.documentElement.scrollTop) {
+      bestScrollElement = 0;
+    } else if (document.body.scrollLeft || document.body.scrollTop) {
+      bestScrollElement = 1;
+    } else if (window.pageXOffset || window.pageYOffset) {
+      bestScrollElement = 2;
+    } else {
+      return 0
     }
+  }
+  if (left) {
     switch (bestScrollElement) {
       case 0:
         return document.documentElement.scrollLeft;
@@ -132,17 +132,6 @@ function getScrollElement(left) {
         return document.body.scrollLeft;
     }
   } else {
-    if (!bestScrollElement) {
-      if (document.documentElement.scrollTop) {
-        bestScrollElement = 0;
-      } else if (document.body.scrollTop) {
-        bestScrollElement = 1;
-      } else if (window.pageYOffset) {
-        bestScrollElement = 2;
-      } else {
-        return 0
-      }
-    }
     switch (bestScrollElement) {
       case 0:
         return document.documentElement.scrollTop;
