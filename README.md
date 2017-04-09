@@ -10,8 +10,11 @@ smoothScrollTo(document.getElementById('second'));
 smoothScrollTo(124);
 
 //speed
-smoothScrollTo(document.getElementById('second'), 50);
+smoothScrollTo(document.getElementById('second'), "TB", 50);
 
 //left right scrolling
-smoothScrollToLR(document.getElementById('second'));
+smoothScrollToLR(document.getElementById('second'), "LR");
+
+//scrolling in BOTH directions
+smoothScrollToLR(document.getElementById('second'), "BOTH");
 ```
