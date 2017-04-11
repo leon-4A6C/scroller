@@ -12,18 +12,18 @@ function smoothScrollTo(scrollToObject, direction, speed) {
       if (window.matchMedia("(max-width: 599px)").matches) {
         speed = 25;
       } else {
-        // the viewport is less than 599 pixels wide
         speed = 50;
       }
     }
-    if (typeof(scrollTo) != "number") {
-      if (direction === "TB") {
-        var scrollTo = scrollToObject.offsetTop;
-      } else {
+    if (typeof(scrollToObject) != "number") {
+      if (direction === "LR") {
         var scrollTo = scrollToObject.offsetLeft;
+      } else {
+        var scrollTo = scrollToObject.offsetTop;
       }
+    } else {
+      var scrollTo = scrollToObject;
     }
-    console.log(scrollToObject, direction, scrollTo, speed);
     var start = getScrollElement(direction);
     if (start == scrollTo) {
       //done
@@ -97,7 +97,7 @@ function getScrollElement(direction) {
       default:
         return document.body.scrollLeft;
     }
-  } else if(direction === "TB" || !direction){
+  } else {
     switch (bestScrollElement) {
       case 0:
         return document.documentElement.scrollTop;
@@ -130,7 +130,7 @@ function setScrollElement(x, direction) {
         document.body.scrollLeft = x;
         return 0
     }
-  } else if(direction === "TB"  || !direction){
+  } else {
     switch (bestScrollElement) {
       case 0:
         document.documentElement.scrollTop = x;
